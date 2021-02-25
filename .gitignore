@@ -1,0 +1,10 @@
+.*
+!.git*
+!.coveragerc
+__pycache__
+
+build
+dist
+*.egg*
+
+*_local.sh
