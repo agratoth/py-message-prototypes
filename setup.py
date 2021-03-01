@@ -4,7 +4,7 @@ from setuptools import setup
 setup(
     name='py-message-prototypes',
     zip_safe=True,
-    version='0.1.0',
+    version='0.2.0',
     description='Prototype objects for messaging and datapipes',
     url='https://github.com/agratoth/py-message-prototypes',
     maintainer='Anton Berdnikov',

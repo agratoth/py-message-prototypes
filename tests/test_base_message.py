@@ -166,3 +166,22 @@ def test_unpack_incorrect_model():
 
     test = TestMessage.unpack(unpacked_data)
     assert test.message_val is None
+
+def test_detect_model():
+    unpacked_data = {
+        '_model': 'TestMessage',
+        'message_val': {
+            '_model': 'TestMessage3',
+            'dict_val': {
+                'val1': 123,
+                'val2': 'test123',
+                'val3': [111, 222, 'test321']
+            }
+        }
+    }
+
+    assert BaseMessage.detect_model(unpacked_data) == TestMessage
+
+def test_detect_model_without_model_name():
+    with pytest.raises(MissingModelException):
+        BaseMessage.detect_model(BaseMessage().pack(unpacking_info=False))
