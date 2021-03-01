@@ -167,6 +167,7 @@ def test_unpack_incorrect_model():
     test = TestMessage.unpack(unpacked_data)
     assert test.message_val is None
 
+
 def test_detect_model():
     unpacked_data = {
         '_model': 'TestMessage',
@@ -181,6 +182,7 @@ def test_detect_model():
     }
 
     assert BaseMessage.detect_model(unpacked_data) == TestMessage
+
 
 def test_detect_model_without_model_name():
     with pytest.raises(MissingModelException):
