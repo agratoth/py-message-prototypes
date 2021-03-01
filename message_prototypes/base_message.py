@@ -56,10 +56,9 @@ class BaseMessage:
                 ]
             elif isinstance(node, dict):
                 if '_model' in node:
-                    subclasses = BaseMessage.__subclasses__()
-                    for subclass in subclasses:
-                        if subclass.__name__ == node['_model']:
-                            return subclass.unpack(node)
+                    subclass = cls.detect_model(node)
+                    if subclass:
+                        return subclass.unpack(node)
                     return None
                 else:
                     return {
@@ -73,3 +72,14 @@ class BaseMessage:
             setattr(result, field_name, deserialize_node(field_value))
 
         return result
+
+    @classmethod
+    def detect_model(cls, data={}):
+        if '_model' not in data:
+            raise MissingModelException
+
+        subclasses = BaseMessage.__subclasses__()
+        for subclass in subclasses:
+            if subclass.__name__ == data['_model']:
+                return subclass
+        return None
